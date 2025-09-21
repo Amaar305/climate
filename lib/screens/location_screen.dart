@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:climate/utilities/constants.dart';
 
-class LocationScreen extends StatefulWidget {
-  const LocationScreen({super.key});
+class LocationScreen extends StatelessWidget {
+  const LocationScreen({
+    super.key,
+    required this.city,
+    this.temp,
+    required this.icon,
+    required this.message,
+  });
+  final String city;
+  final int? temp;
+  final String icon;
+  final String message;
 
-  @override
-  State<LocationScreen> createState() => _LocationScreenState();
-}
-
-class _LocationScreenState extends State<LocationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,12 +38,10 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   TextButton(
-                    onPressed: () {},
-                    child: Icon(Icons.near_me, size: 50.0),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Icon(Icons.location_city, size: 50.0),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(Icons.arrow_back_ios, size: 50.0),
                   ),
                 ],
               ),
@@ -46,15 +49,15 @@ class _LocationScreenState extends State<LocationScreen> {
                 padding: EdgeInsets.only(left: 15.0),
                 child: Row(
                   children: <Widget>[
-                    Text('32°', style: kTempTextStyle),
-                    Text('☀️', style: kConditionTextStyle),
+                    Text('$temp°', style: kTempTextStyle),
+                    Text(icon, style: kConditionTextStyle),
                   ],
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  "It's 🍦 time in San Francisco!",
+                  "$message in $city!",
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),
