@@ -1,4 +1,18 @@
+import 'package:climate/services/location.dart';
+import 'package:climate/services/networking.dart';
+
 class WeatherModel {
+  final apiKey = '123456';
+  final openWeatherMapURl = 'https://api';
+  Future<dynamic> getLocationWeather() async {
+    Location location = Location();
+    await location.getCurrentLocation();
+
+    NetworkHelper networkHelper = NetworkHelper(
+      '$openWeatherMapURl?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric',
+    );
+  }
+
   String getWeatherIcon(int condition) {
     if (condition < 300) {
       return '🌩';
